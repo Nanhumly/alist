@@ -5,7 +5,27 @@ import (
 	"github.com/Xhofe/alist/model"
 	"github.com/Xhofe/alist/utils"
 	log "github.com/sirupsen/logrus"
+	"runtime/debug"
 )
+
+func Path(driver base.Driver, account *model.Account, path string) (*model.File, []model.File, error) {
+	return driver.Path(path, account)
+}
+
+func Files(driver base.Driver, account *model.Account, path string) ([]model.File, error) {
+	_, files, err := Path(driver, account, path)
+	if err != nil {
+		return nil, err
+	}
+	if files == nil {
+		return nil, base.ErrNotFolder
+	}
+	return files, nil
+}
+
+func File(driver base.Driver, account *model.Account, path string) (*model.File, error) {
+	return driver.File(path, account)
+}
 
 func MakeDir(driver base.Driver, account *model.Account, path string, clearCache bool) error {
 	log.Debugf("mkdir: %s", path)
@@ -78,5 +98,6 @@ func Upload(driver base.Driver, account *model.Account, file *model.FileStream, 
 	if err != nil {
 		log.Errorf("upload error: %s", err.Error())
 	}
+	debug.FreeOSMemory()
 	return err
 }

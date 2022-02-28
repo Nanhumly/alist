@@ -12,6 +12,8 @@ var (
 	ErrNotSupport   = errors.New("not support")
 	ErrNotFolder    = errors.New("not a folder")
 	ErrEmptyFile    = errors.New("empty file")
+	ErrRelativePath = errors.New("access using relative path is not allowed")
+	ErrEmptyToken   = errors.New("empty token")
 )
 
 const (
@@ -42,7 +44,8 @@ type Header struct {
 }
 
 type Link struct {
-	Url     string   `json:"url"`
-	Headers []Header `json:"headers"`
-	Data    io.ReadCloser
+	Url      string   `json:"url"`
+	Headers  []Header `json:"headers"`
+	Data     io.ReadCloser
+	FilePath string `json:"path"` // for native
 }

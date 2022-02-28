@@ -8,7 +8,6 @@ import (
 	"github.com/Xhofe/alist/drivers/base"
 	"github.com/Xhofe/alist/model"
 	"github.com/Xhofe/alist/utils"
-	"github.com/gin-gonic/gin"
 	"github.com/robfig/cron/v3"
 	log "github.com/sirupsen/logrus"
 	"io"
@@ -191,6 +190,12 @@ func (driver AliDrive) Link(args base.Args, account *model.Account) (*base.Link,
 		return nil, fmt.Errorf("%s", e.Message)
 	}
 	return &base.Link{
+		Headers: []base.Header{
+			{
+				Name:  "Referer",
+				Value: "https://www.aliyundrive.com/",
+			},
+		},
 		Url: resp["url"].(string),
 	}, nil
 }
@@ -212,10 +217,10 @@ func (driver AliDrive) Path(path string, account *model.Account) (*model.File, [
 	return nil, files, nil
 }
 
-func (driver AliDrive) Proxy(c *gin.Context, account *model.Account) {
-	c.Request.Header.Del("Origin")
-	c.Request.Header.Set("Referer", "https://www.aliyundrive.com/")
-}
+//func (driver AliDrive) Proxy(r *http.Request, account *model.Account) {
+//	r.Header.Del("Origin")
+//	r.Header.Set("Referer", "https://www.aliyundrive.com/")
+//}
 
 func (driver AliDrive) Preview(path string, account *model.Account) (interface{}, error) {
 	file, err := driver.GetFile(path, account)
@@ -304,7 +309,7 @@ func (driver AliDrive) Move(src string, dst string, account *model.Account) erro
 	if err != nil {
 		return err
 	}
-	err = driver.batch(srcFile.Id, dstDirFile.Id, account)
+	err = driver.batch(srcFile.Id, dstDirFile.Id, "/file/move", account)
 	return err
 }
 
@@ -319,7 +324,17 @@ func (driver AliDrive) Rename(src string, dst string, account *model.Account) er
 }
 
 func (driver AliDrive) Copy(src string, dst string, account *model.Account) error {
-	return base.ErrNotSupport
+	dstDir, _ := filepath.Split(dst)
+	srcFile, err := driver.File(src, account)
+	if err != nil {
+		return err
+	}
+	dstDirFile, err := driver.File(dstDir, account)
+	if err != nil {
+		return err
+	}
+	err = driver.batch(srcFile.Id, dstDirFile.Id, "/file/copy", account)
+	return err
 }
 
 func (driver AliDrive) Delete(path string, account *model.Account) error {

@@ -15,6 +15,8 @@ func InitApiRouter(r *gin.Engine) {
 	Cors(r)
 	r.GET("/d/*path", middlewares.DownCheck, controllers.Down)
 	r.GET("/p/*path", middlewares.DownCheck, controllers.Proxy)
+	r.GET("/favicon.ico", controllers.Favicon)
+	r.GET("/i/:data/ipa.plist", controllers.Plist)
 
 	api := r.Group("/api")
 	public := api.Group("/public")
@@ -32,7 +34,7 @@ func InitApiRouter(r *gin.Engine) {
 	admin := api.Group("/admin")
 	{
 		admin.Use(middlewares.Auth)
-		admin.GET("/login", common.Login)
+		admin.Any("/login", common.Login)
 		admin.GET("/settings", controllers.GetSettings)
 		admin.POST("/settings", controllers.SaveSettings)
 		admin.DELETE("/setting", controllers.DeleteSetting)
@@ -54,7 +56,9 @@ func InitApiRouter(r *gin.Engine) {
 		admin.POST("/mkdir", file.Mkdir)
 		admin.POST("/rename", file.Rename)
 		admin.POST("/move", file.Move)
+		admin.POST("/copy", file.Copy)
 		admin.POST("/folder", file.Folder)
+		admin.POST("/refresh", file.RefreshFolder)
 	}
 	WebDav(r)
 	Static(r)

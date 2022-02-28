@@ -8,9 +8,9 @@ import (
 	"github.com/Xhofe/alist/model"
 	"github.com/Xhofe/alist/utils"
 	"github.com/go-resty/resty/v2"
+	jsoniter "github.com/json-iterator/go"
 	log "github.com/sirupsen/logrus"
 	"path/filepath"
-	"strings"
 	"time"
 )
 
@@ -190,7 +190,7 @@ func (driver AliDrive) rename(fileId, name string, account *model.Account) error
 	return fmt.Errorf("%+v", resp)
 }
 
-func (driver AliDrive) batch(srcId, dstId string, account *model.Account) error {
+func (driver AliDrive) batch(srcId, dstId string, url string, account *model.Account) error {
 	var e AliRespError
 	res, err := aliClient.R().SetError(&e).
 		SetHeader("authorization", "Bearer\t"+account.AccessToken).
@@ -208,6 +208,7 @@ func (driver AliDrive) batch(srcId, dstId string, account *model.Account) error 
 						"to_drive_id":       account.DriveId,
 						"to_parent_file_id": dstId,
 					},
+					"url": url,
 				},
 			},
 			"resource": "file",
@@ -222,12 +223,13 @@ func (driver AliDrive) batch(srcId, dstId string, account *model.Account) error 
 				return err
 			} else {
 				_ = model.SaveAccount(account)
-				return driver.batch(srcId, dstId, account)
+				return driver.batch(srcId, dstId, url, account)
 			}
 		}
 		return fmt.Errorf("%s", e.Message)
 	}
-	if strings.Contains(res.String(), `"status":200`) {
+	status := jsoniter.Get(res.Body(), "status").ToInt()
+	if status < 400 && status >= 100 {
 		return nil
 	}
 	return errors.New(res.String())
@@ -236,6 +238,7 @@ func (driver AliDrive) batch(srcId, dstId string, account *model.Account) error 
 func init() {
 	base.RegisterDriver(&AliDrive{})
 	aliClient.
+		SetTimeout(base.DefaultTimeout).
 		SetRetryCount(3).
 		SetHeader("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36").
 		SetHeader("content-type", "application/json").

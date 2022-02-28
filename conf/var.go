@@ -14,6 +14,7 @@ var (
 	GitAuthor string
 	GitCommit string
 	GitTag    string = "dev"
+	WebTag    string
 )
 
 var (
@@ -33,13 +34,14 @@ var (
 	TextTypes = []string{"txt", "htm", "html", "xml", "java", "properties", "sql",
 		"js", "md", "json", "conf", "ini", "vue", "php", "py", "bat", "gitignore", "yml",
 		"go", "sh", "c", "cpp", "h", "hpp", "tsx", "vtt", "srt", "ass"}
+	DProxyTypes = []string{"m3u8"}
 	OfficeTypes = []string{"doc", "docx", "xls", "xlsx", "ppt", "pptx", "pdf"}
 	VideoTypes  = []string{"mp4", "mkv", "avi", "mov", "rmvb", "webm", "flv"}
 	AudioTypes  = []string{"mp3", "flac", "ogg", "m4a", "wav"}
-	ImageTypes  = []string{"jpg", "tiff", "jpeg", "png", "gif", "bmp", "svg", "ico", "swf"}
+	ImageTypes  = []string{"jpg", "tiff", "jpeg", "png", "gif", "bmp", "svg", "ico", "swf", "webp"}
 )
 
-var settingsMap = make(map[string]string, 0)
+var settingsMap = make(map[string]string)
 
 func Set(key string, value string) {
 	settingsMap[key] = value
@@ -78,6 +80,7 @@ var (
 		"check parent folder", "check down link", "WebDAV username", "WebDAV password",
 		"Visitor WebDAV username", "Visitor WebDAV password",
 		"default page size", "load type",
+		"ocr api", "favicon",
 	}
 )
 

@@ -9,14 +9,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type MoveReq struct {
+type MoveCopyReq struct {
 	SrcDir string   `json:"src_dir"`
 	DstDir string   `json:"dst_dir"`
 	Names  []string `json:"names"`
 }
 
 func Move(c *gin.Context) {
-	var req MoveReq
+	var req MoveCopyReq
 	if err := c.ShouldBind(&req); err != nil {
 		common.ErrorResp(c, err, 400)
 		return
