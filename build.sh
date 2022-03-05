@@ -6,8 +6,11 @@ BUILD_WEB() {
   cd alist-web
   yarn
   yarn build
+  sed -i -e "s/\/CDN_URL\//\//g" dist/index.html
+  sed -i -e "s/assets/\/assets/g" dist/index.html
+  rm -f dist/index.html-e
   mv dist ..
-  cd ..
+  cd .. || exit
   rm -rf alist-web
 }
 
@@ -71,9 +74,9 @@ BUILD() {
       upx -9 ./alist-windows*
       find . -type f -print0 | xargs -0 md5sum >md5.txt
       cat md5.txt
-      cd ..
+      cd .. || exit
   fi
-  cd ..
+  cd .. || exit
 }
 
 BUILD_MUSL() {
@@ -113,12 +116,12 @@ BUILD_MUSL() {
       export CGO_ENABLED=1
       go build -o ./build/$appName-$os_arch -ldflags="$ldflags" -tags=jsoniter alist.go
   done
-  cd ..
+  cd .. || exit
 }
 
 RELEASE() {
   cd alist/build
-  upx -9 ./alist-linux*
+  upx -9 ./alist-linux-amd64
   upx -9 ./alist-windows*
   find . -type f -print0 | xargs -0 md5sum >md5.txt
   cat md5.txt
@@ -133,7 +136,7 @@ RELEASE() {
   for i in $(find . -type f -name "$appName-windows-*"); do
     zip compress/$(echo $i | sed 's/\.[^.]*$//').zip "$i"
   done
-  cd ../..
+  cd ../.. || exit 
 }
 
 if [ "$1" = "web" ]; then

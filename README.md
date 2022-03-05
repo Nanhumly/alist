@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://alist.nn.ci"><img height="100px" alt="logo" src="https://cdn.jsdelivr.net/gh/alist-org/assets@main/logo.svg"/></a>
+  <a href="https://alist.nn.ci"><img height="100px" alt="logo" src="https://cdn.jsdelivr.net/gh/alist-org/logo@main/logo.svg"/></a>
   <p><em>🗂️Another file list program that supports multiple storage, powered by Gin and React.</em></p>
   <a href="https://github.com/Xhofe/alist/releases"><img src="https://img.shields.io/github/release/Xhofe/alist?style=flat-square" alt="latest version"></a>
   <a href="https://github.com/Xhofe/alist/discussions"><img src="https://img.shields.io/github/discussions/Xhofe/alist?color=%23ED8936&style=flat-square" alt="discussions"></a>
@@ -11,11 +11,13 @@
   </a>
 </div>
 
-
-
 ---
 
 English | [中文](./README_cn.md)
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Features
 
@@ -39,6 +41,7 @@ English | [中文](./README_cn.md)
   - [x] [Yandex.Disk](https://disk.yandex.com/)
   - [x] [Baidu Disk](http://pan.baidu.com/)
   - [x] [Quark](https://pan.quark.cn)
+  - [x] [XunleiCloud](https://pan.xunlei.com/)
 - [x] Easy to deploy and out-of-the-box
 - [x] File preview (PDF, markdown, code, plain text, ...)
 - [x] Image preview in gallery mode
@@ -64,11 +67,34 @@ Please go to our [discussion forum](https://github.com/Xhofe/alist/discussions) 
 
 Available at: <https://alist.nn.ci>.
 
-![demo](https://inews.gtimg.com/newsapp_ls/0/14256614096/0)
+![demo](https://store.heytapimage.com/cdo-portal/feedback/202202/20/b271627971e29f0c7c9d59935b6ef381.png)
 
 ## Document
 
 <https://alist-doc.nn.ci/en/>
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="http://nn.ci"><img src="https://avatars.githubusercontent.com/u/36558727?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Xhofe</b></sub></a><br /><a href="https://github.com/Xhofe/alist/commits?author=Xhofe" title="Code">💻</a> <a href="#ideas-Xhofe" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/Xhofe/alist/commits?author=Xhofe" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/foxxorcat"><img src="https://avatars.githubusercontent.com/u/95907542?v=4?s=100" width="100px;" alt=""/><br /><sub><b>foxxorcat</b></sub></a><br /><a href="https://github.com/Xhofe/alist/commits?author=foxxorcat" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.iflu.cf/"><img src="https://avatars.githubusercontent.com/u/63903027?v=4?s=100" width="100px;" alt=""/><br /><sub><b>道辰</b></sub></a><br /><a href="https://github.com/Xhofe/alist/commits?author=DaoChen6" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://vg-land.github.io/"><img src="https://avatars.githubusercontent.com/u/16739728?v=4?s=100" width="100px;" alt=""/><br /><sub><b>vg-land</b></sub></a><br /><a href="https://github.com/Xhofe/alist/commits?author=vg-land" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
 ## License
 
@@ -76,4 +102,4 @@ The `AList` is open-source software licensed under the AGPL-3.0 license.
 
 ---
 
-> [@Blog](https://www.nn.ci/) · [@GitHub](https://github.com/Xhofe)
+> [@Blog](https://www.nn.ci/) · [@GitHub](https://github.com/Xhofe) · [@TelegramGroup](https://t.me/alist_chat) · [@QQGroup](https://jq.qq.com/?_wv=1027&k=OVPJcv2b)
