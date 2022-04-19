@@ -13,11 +13,7 @@
 
 ---
 
-English | [中文](./README_cn.md)
-
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+English | [中文](./README_cn.md) | [Contributors](./CONTRIBUTORS.md) | [Contributing](./CONTRIBUTING.md)
 
 ## Features
 
@@ -25,7 +21,7 @@ English | [中文](./README_cn.md)
   - [x] Local storage
   - [x] [Aliyundrive](https://www.aliyundrive.com/)
   - [x] OneDrive / Sharepoint ([global](https://www.office.com/), [cn](https://portal.partner.microsoftonline.cn),de,us)
-  - [x] [189cloud](https://cloud.189.cn)
+  - [x] [189cloud](https://cloud.189.cn) (Personal, Family)
   - [x] [GoogleDrive](https://drive.google.com/)
   - [x] [123pan](https://www.123pan.com/)
   - [x] [Lanzou](https://pc.woozooo.com/)
@@ -34,7 +30,7 @@ English | [中文](./README_cn.md)
   - [x] [PikPak](https://www.mypikpak.com/)
   - [x] [ShandianPan](https://shandianpan.com/)
   - [x] [S3](https://aws.amazon.com/s3/)
-  - [x] WebDav
+  - [x] WebDav(Support OneDrive/SharePoint without API)
   - [x] Teambition([China](https://www.teambition.com/ ),[International](https://us.teambition.com/ ))
   - [x] [Mediatrack](https://www.mediatrack.cn/)
   - [x] [139yun](https://yun.139.com/) (Personal, Family)
@@ -42,6 +38,7 @@ English | [中文](./README_cn.md)
   - [x] [Baidu Disk](http://pan.baidu.com/)
   - [x] [Quark](https://pan.quark.cn)
   - [x] [XunleiCloud](https://pan.xunlei.com/)
+  - [x] SFTP
 - [x] Easy to deploy and out-of-the-box
 - [x] File preview (PDF, markdown, code, plain text, ...)
 - [x] Image preview in gallery mode
@@ -73,33 +70,21 @@ Available at: <https://alist.nn.ci>.
 
 <https://alist-doc.nn.ci/en/>
 
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="http://nn.ci"><img src="https://avatars.githubusercontent.com/u/36558727?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Xhofe</b></sub></a><br /><a href="https://github.com/Xhofe/alist/commits?author=Xhofe" title="Code">💻</a> <a href="#ideas-Xhofe" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/Xhofe/alist/commits?author=Xhofe" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/foxxorcat"><img src="https://avatars.githubusercontent.com/u/95907542?v=4?s=100" width="100px;" alt=""/><br /><sub><b>foxxorcat</b></sub></a><br /><a href="https://github.com/Xhofe/alist/commits?author=foxxorcat" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.iflu.cf/"><img src="https://avatars.githubusercontent.com/u/63903027?v=4?s=100" width="100px;" alt=""/><br /><sub><b>道辰</b></sub></a><br /><a href="https://github.com/Xhofe/alist/commits?author=DaoChen6" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://vg-land.github.io/"><img src="https://avatars.githubusercontent.com/u/16739728?v=4?s=100" width="100px;" alt=""/><br /><sub><b>vg-land</b></sub></a><br /><a href="https://github.com/Xhofe/alist/commits?author=vg-land" title="Code">💻</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+## Special sponsors
+- [Find Resources - Aliyundrive Resource Search Engine](https://zhaoziyuan.la/)
+- [JetBrains: Essential tools for software developers and teams](https://www.jetbrains.com/)
 
 ## License
 
 The `AList` is open-source software licensed under the AGPL-3.0 license.
 
+## Disclaimer
+- This program is a free and open source project. It is designed to share files on the network disk, which is convenient for downloading and learning golang. Please abide by relevant laws and regulations when using it, and do not abuse it;
+- This program is implemented by calling the official sdk/interface, without destroying the official interface behavior;
+- This program only does 302 redirect/traffic forwarding, and does not intercept, store, or tamper with any user data;
+- Before using this program, you should understand and bear the corresponding risks, including but not limited to account ban, download speed limit, etc., which is none of this program's business;
+- If there is any infringement, please contact me by [email](mailto:i@nn.ci), and it will be dealt with in time.
+
 ---
 
-> [@Blog](https://www.nn.ci/) · [@GitHub](https://github.com/Xhofe) · [@TelegramGroup](https://t.me/alist_chat) · [@QQGroup](https://jq.qq.com/?_wv=1027&k=OVPJcv2b)
+> [@Blog](https://nn.ci/) · [@GitHub](https://github.com/Xhofe) · [@TelegramGroup](https://t.me/alist_chat) · [@QQGroup](https://jq.qq.com/?_wv=1027&k=OVPJcv2b)

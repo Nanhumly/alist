@@ -31,36 +31,53 @@ func (fs *FileSystem) File(rawPath string) (*model.File, error) {
 	if f, ok := upFileMap[rawPath]; ok {
 		return f, nil
 	}
-	if model.AccountsCount() > 1 && rawPath == "/" {
-		now := time.Now()
-		return &model.File{
-			Name:      "root",
-			Size:      0,
-			Type:      conf.FOLDER,
-			Driver:    "root",
-			UpdatedAt: &now,
-		}, nil
-	}
 	account, path_, driver, err := common.ParsePath(rawPath)
+	log.Debugln(account, path_, driver, err)
 	if err != nil {
+		if err.Error() == "path not found" {
+			accountFiles := model.GetAccountFilesByPath(rawPath)
+			if len(accountFiles) != 0 {
+				now := time.Now()
+				return &model.File{
+					Name:      "root",
+					Size:      0,
+					Type:      conf.FOLDER,
+					UpdatedAt: &now,
+				}, nil
+			}
+		}
 		return nil, err
 	}
-	return operate.File(driver, account, path_)
+	file, err := operate.File(driver, account, path_)
+	if err != nil && err.Error() == "path not found" {
+		accountFiles := model.GetAccountFilesByPath(rawPath)
+		if len(accountFiles) != 0 {
+			now := time.Now()
+			return &model.File{
+				Name:      "root",
+				Size:      0,
+				Type:      conf.FOLDER,
+				UpdatedAt: &now,
+			}, nil
+		}
+	}
+	return file, err
 }
 
 func (fs *FileSystem) Files(ctx context.Context, rawPath string) ([]model.File, error) {
 	rawPath = utils.ParsePath(rawPath)
-	var files []model.File
-	var err error
-	if model.AccountsCount() > 1 && rawPath == "/" {
-		files, err = model.GetAccountFiles()
-	} else {
-		account, path_, driver, err := common.ParsePath(rawPath)
-		if err != nil {
-			return nil, err
-		}
-		files, err = operate.Files(driver, account, path_)
-	}
+	//var files []model.File
+	//var err error
+	//if model.AccountsCount() > 1 && rawPath == "/" {
+	//	files, err = model.GetAccountFilesByPath("/")
+	//} else {
+	//	account, path_, driver, err := common.ParsePath(rawPath)
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//	files, err = operate.Files(driver, account, path_)
+	//}
+	_, files, _, _, _, err := common.Path(rawPath)
 	if err != nil {
 		return nil, err
 	}
@@ -125,10 +142,10 @@ func (fs *FileSystem) Link(w http.ResponseWriter, r *http.Request, rawPath strin
 	}
 	if driver.Config().OnlyProxy || account.WebdavProxy {
 		link = fmt.Sprintf("%s://%s/p%s", protocol, r.Host, rawPath)
-		if conf.GetBool("check down link") {
-			sign := utils.SignWithToken(utils.Base(rawPath), conf.Token)
-			link += "?sign=" + sign
-		}
+		//if conf.GetBool("check down link") {
+		sign := utils.SignWithToken(utils.Base(rawPath), conf.Token)
+		link += "?sign=" + sign
+		//}
 	} else {
 		link_, err := driver.Link(base.Args{Path: path_, IP: ClientIP(r)}, account)
 		if err != nil {
@@ -156,29 +173,27 @@ func (fs *FileSystem) CreateDirectory(ctx context.Context, rawPath string) error
 	return operate.MakeDir(driver, account, path_, true)
 }
 
-func (fs *FileSystem) Upload(ctx context.Context, r *http.Request, rawPath string) error {
+func (fs *FileSystem) Upload(ctx context.Context, r *http.Request, rawPath string) (FileInfo, error) {
 	rawPath = utils.ParsePath(rawPath)
 	if model.AccountsCount() > 1 && rawPath == "/" {
-		return ErrNotImplemented
+		return nil, ErrNotImplemented
 	}
 	account, path_, driver, err := common.ParsePath(rawPath)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	//fileSize, err := strconv.ParseUint(r.Header.Get("Content-Length"), 10, 64)
 	fileSize := uint64(r.ContentLength)
-	//if err != nil {
-	//	return err
-	//}
 	filePath, fileName := filepath.Split(path_)
 	now := time.Now()
+	fi := &model.File{
+		Name:      fileName,
+		Size:      0,
+		UpdatedAt: &now,
+	}
 	if fileSize == 0 {
-		upFileMap[rawPath] = &model.File{
-			Name:      fileName,
-			Size:      0,
-			UpdatedAt: &now,
-		}
-		return nil
+		// 如果文件大小为0，默认成功
+		upFileMap[rawPath] = fi
+		return fi, nil
 	} else {
 		delete(upFileMap, rawPath)
 	}
@@ -189,7 +204,7 @@ func (fs *FileSystem) Upload(ctx context.Context, r *http.Request, rawPath strin
 		Name:       fileName,
 		ParentPath: filePath,
 	}
-	return operate.Upload(driver, account, &fileData, true)
+	return fi, operate.Upload(driver, account, &fileData, true)
 }
 
 func (fs *FileSystem) Delete(rawPath string) error {

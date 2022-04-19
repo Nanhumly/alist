@@ -59,10 +59,32 @@ func InitSettings() {
 			Group:       model.FRONT,
 		},
 		{
+			Key:         "announcement",
+			Value:       "This is a test announcement.",
+			Description: "announcement message (support markdown)",
+			Type:        "text",
+			Access:      model.PUBLIC,
+			Group:       model.FRONT,
+		},
+		{
 			Key:         "text types",
 			Value:       strings.Join(conf.TextTypes, ","),
 			Type:        "string",
 			Description: "text type extensions",
+			Group:       model.FRONT,
+		},
+		{
+			Key:         "audio types",
+			Value:       strings.Join(conf.AudioTypes, ","),
+			Type:        "string",
+			Description: "audio type extensions",
+			Group:       model.FRONT,
+		},
+		{
+			Key:         "video types",
+			Value:       strings.Join(conf.VideoTypes, ","),
+			Type:        "string",
+			Description: "video type extensions",
 			Group:       model.FRONT,
 		},
 		{
@@ -96,8 +118,8 @@ func InitSettings() {
 			Group:       model.FRONT,
 		},
 		{
-			Key:         "home readme url",
-			Description: "when have multiple, the readme file to show",
+			Key:         "global readme url",
+			Description: "Default display when directory has no readme",
 			Type:        "string",
 			Access:      model.PUBLIC,
 			Group:       model.FRONT,
@@ -236,6 +258,14 @@ func InitSettings() {
 			Access:      model.PRIVATE,
 			Group:       model.BACK,
 		},
+		{
+			Key:         "enable search",
+			Value:       "false",
+			Type:        "bool",
+			Access:      model.PUBLIC,
+			Group:       model.BACK,
+			Description: "Experimental function, not recommended as it's still under development",
+		},
 	}
 	for i, _ := range settings {
 		v := settings[i]
@@ -245,7 +275,7 @@ func InitSettings() {
 			if err == gorm.ErrRecordNotFound {
 				err = model.SaveSetting(v)
 				if v.Key == "password" {
-					log.Infof("Initial password: %s", v.Value)
+					log.Infof("Initial password: %s", conf.C.Sprintf(v.Value))
 				}
 				if err != nil {
 					log.Fatalf("failed write setting: %s", err.Error())
@@ -260,6 +290,9 @@ func InitSettings() {
 			err = model.SaveSetting(v)
 			if err != nil {
 				log.Fatalf("failed write setting: %s", err.Error())
+			}
+			if v.Key == "password" {
+				log.Infof("Your password: %s", conf.C.Sprintf(v.Value))
 			}
 		}
 	}

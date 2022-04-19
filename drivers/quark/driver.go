@@ -64,6 +64,12 @@ func (driver Quark) Save(account *model.Account, old *model.Account) error {
 		return nil
 	}
 	_, err := driver.Get("/config", nil, nil, account)
+	if err == nil {
+		account.Status = "work"
+	} else {
+		account.Status = err.Error()
+	}
+	_ = model.SaveAccount(account)
 	return err
 }
 
@@ -132,6 +138,7 @@ func (driver Quark) Link(args base.Args, account *model.Account) (*base.Link, er
 		Url: resp.Data[0].DownloadUrl,
 		Headers: []base.Header{
 			{Name: "Cookie", Value: account.AccessToken},
+			{Name: "Referer", Value: "https://pan.quark.cn"},
 		},
 	}, nil
 }

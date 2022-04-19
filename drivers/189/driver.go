@@ -6,8 +6,11 @@ import (
 	"github.com/Xhofe/alist/drivers/base"
 	"github.com/Xhofe/alist/model"
 	"github.com/Xhofe/alist/utils"
+	"github.com/go-resty/resty/v2"
 	log "github.com/sirupsen/logrus"
+	"net/http"
 	"path/filepath"
+	"strings"
 )
 
 type Cloud189 struct{}
@@ -152,14 +155,15 @@ func (driver Cloud189) Link(args base.Args, account *model.Account) (*base.Link,
 	if file.Type == conf.FOLDER {
 		return nil, base.ErrNotFile
 	}
-	var resp Cloud189Down
-	u := "https://cloud.189.cn/api/open/file/getFileDownloadUrl.action"
+	var resp DownResp
+	u := "https://cloud.189.cn/api/portal/getFileInfo.action"
 	body, err := driver.Request(u, base.Get, map[string]string{
 		"fileId": file.Id,
 	}, nil, nil, account)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugln(string(body))
 	err = utils.Json.Unmarshal(body, &resp)
 	if err != nil {
 		return nil, err
@@ -167,21 +171,35 @@ func (driver Cloud189) Link(args base.Args, account *model.Account) (*base.Link,
 	if resp.ResCode != 0 {
 		return nil, fmt.Errorf(resp.ResMessage)
 	}
-	res, err := base.NoRedirectClient.R().Get(resp.FileDownloadUrl)
+	client, err := driver.getClient(account)
 	if err != nil {
 		return nil, err
 	}
+	client = resty.NewWithClient(client.GetClient()).SetRedirectPolicy(
+		resty.RedirectPolicyFunc(func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		}))
+	res, err := client.R().Get("https:" + resp.FileDownloadUrl)
+	if err != nil {
+		return nil, err
+	}
+	log.Debugln(res.Status())
 	link := base.Link{
 		Headers: []base.Header{
 			{Name: "User-Agent", Value: base.UserAgent},
-			{Name: "Authorization", Value: ""},
+			//{Name: "Authorization", Value: ""},
 		},
 	}
 	if res.StatusCode() == 302 {
 		link.Url = res.Header().Get("location")
+		res, err = client.R().Get(link.Url)
+		if res.StatusCode() == 302 {
+			link.Url = res.Header().Get("location")
+		}
 	} else {
 		link.Url = resp.FileDownloadUrl
 	}
+	link.Url = strings.Replace(link.Url, "http://", "https://", 1)
 	return &link, nil
 }
 

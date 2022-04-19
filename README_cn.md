@@ -13,11 +13,7 @@
 
 ---
 
-[English](./README.md) | 中文
-
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[English](./README.md) | 中文 | [Contributors](./CONTRIBUTORS.md) | [Contributing](./CONTRIBUTING.md)
 
 ## 支持
 
@@ -25,7 +21,7 @@
   - [x] 本地存储
   - [x] [阿里云盘](https://www.aliyundrive.com/)
   - [x] OneDrive / Sharepoint（[国际版](https://www.office.com/), [世纪互联](https://portal.partner.microsoftonline.cn),de,us）
-  - [x] [天翼云盘](https://cloud.189.cn)
+  - [x] [天翼云盘](https://cloud.189.cn) (个人云, 家庭云)
   - [x] [GoogleDrive](https://drive.google.com/)
   - [x] [123云盘](https://www.123pan.com/)
   - [x] [蓝奏云](https://pc.woozooo.com/)
@@ -34,7 +30,7 @@
   - [x] [PikPak](https://www.mypikpak.com/)
   - [x] [闪电盘](https://shandianpan.com/)
   - [x] [S3](https://aws.amazon.com/cn/s3/)
-  - [x] WebDav
+  - [x] WebDav(支持无API的OneDrive/SharePoint)
   - [x] Teambition（[中国](https://www.teambition.com/ )，[国际](https://us.teambition.com/ )）
   - [x] [分秒帧](https://www.mediatrack.cn/)
   - [x] [和彩云](https://yun.139.com/) (个人云, 家庭云)
@@ -42,6 +38,7 @@
   - [x] [百度网盘](http://pan.baidu.com/)
   - [x] [夸克网盘](https://pan.quark.cn)
   - [x] [迅雷云盘](https://pan.xunlei.com/)
+  - [x] SFTP
 - [x] 部署方便，开箱即用
 - [x] 文件预览（PDF、markdown、代码、纯文本……）
 - [x] 画廊模式下的图像预览
@@ -73,33 +70,21 @@
 
 <https://alist-doc.nn.ci/>
 
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="http://nn.ci"><img src="https://avatars.githubusercontent.com/u/36558727?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Xhofe</b></sub></a><br /><a href="https://github.com/Xhofe/alist/commits?author=Xhofe" title="Code">💻</a> <a href="#ideas-Xhofe" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/Xhofe/alist/commits?author=Xhofe" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/foxxorcat"><img src="https://avatars.githubusercontent.com/u/95907542?v=4?s=100" width="100px;" alt=""/><br /><sub><b>foxxorcat</b></sub></a><br /><a href="https://github.com/Xhofe/alist/commits?author=foxxorcat" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.iflu.cf/"><img src="https://avatars.githubusercontent.com/u/63903027?v=4?s=100" width="100px;" alt=""/><br /><sub><b>道辰</b></sub></a><br /><a href="https://github.com/Xhofe/alist/commits?author=DaoChen6" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://vg-land.github.io/"><img src="https://avatars.githubusercontent.com/u/16739728?v=4?s=100" width="100px;" alt=""/><br /><sub><b>vg-land</b></sub></a><br /><a href="https://github.com/Xhofe/alist/commits?author=vg-land" title="Code">💻</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+## 特别赞助
+- [找资源 - 阿里云盘资源搜索引擎](https://zhaoziyuan.la/)
+- [JetBrains: Essential tools for software developers and teams](https://www.jetbrains.com/)
 
 ##  许可
 
 `AList` 是在 AGPL-3.0 许可下许可的开源软件。
 
+## 免责声明
+- 本程序为免费开源项目，旨在分享网盘文件，方便下载以及学习golang，使用时请遵守相关法律法规，请勿滥用；
+- 本程序通过调用官方sdk/接口实现，无破坏官方接口行为；
+- 本程序仅做302重定向/流量转发，不拦截、存储、篡改任何用户数据；
+- 在使用本程序之前，你应了解并承担相应的风险，包括但不限于账号被ban，下载限速等，与本程序无关；
+- 如有侵权，请通过[邮件](mailto:i@nn.ci)与我联系，会及时处理。
+
 ---
 
-> [@Blog](https://www.nn.ci/) · [@GitHub](https://github.com/Xhofe) · [@TelegramGroup](https://t.me/alist_chat) · [@QQGroup](https://jq.qq.com/?_wv=1027&k=OVPJcv2b)
+> [@Blog](https://nn.ci/) · [@GitHub](https://github.com/Xhofe) · [@TelegramGroup](https://t.me/alist_chat) · [@QQGroup](https://jq.qq.com/?_wv=1027&k=OVPJcv2b)
